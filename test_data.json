@@ -1,0 +1,35 @@
+{
+    "balance": {
+        "assets":[
+            { "Property": 9000000} ,
+            { "Saving": 120000 },
+            { "Stocks": 200000 }
+        ],
+        "liaibilities":[
+            { "Car Loan": 110000 },
+            { "Credie card Loan": 60000 },
+            { "House Loan": 6800000 }
+        ]
+    },
+    "cashflow": {
+        "income": [
+            { "Salary": 600000 },
+            { "Bonus": 100000 },
+            { "Rent": 85000 },
+            { "Dividend": 1700 },
+            { "Interest": 800 }
+        ],
+        "expenses": [
+            { "Loan Repayment": 80000 },
+            { "Settlements": 95000 },
+            { "Utilities": 15000 },
+            { "Food": 110000 },
+            { "Investment": 75000 },
+            { "Personal": 60000 },
+            { "Rent": 120000 },
+            { "Insurance": 100000 },
+            { "Provident Fund": 42000 },
+            { "Saving": 90000 }
+        ]
+    }
+}
