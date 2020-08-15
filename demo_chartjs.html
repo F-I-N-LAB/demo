@@ -1,0 +1,102 @@
+<html>
+
+<head>
+    <title>Graph Example</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <canvas id="assetChart" width="200" height="200"></canvas>
+    <canvas id="liabilityChart" width="200" height="200"></canvas>
+    <canvas id="incomeChart" width="200" height="200"></canvas>
+    <canvas id="expenseChart" width="200" height="200"></canvas>
+    <script>
+        var data;
+        var assetList = {};
+        assetList["type"] = [];
+        assetList["value"] = [];
+        var liabilityList = {};
+        liabilityList["type"] = [];
+        liabilityList["value"] = [];
+        var incomeList = {};
+        incomeList["type"] = [];
+        incomeList["value"] = [];
+        var expenseList = {};
+        expenseList["type"] = [];
+        expenseList["value"] = [];
+
+        $.getJSON("test_data.json", function(json) {
+            data = json;
+            data.balance.assets.forEach( item => {
+                assetList["type"].push(Object.keys(item)[0]);
+                assetList["value"].push(Object.values(item)[0]);
+            });
+            data.balance.liaibilities.forEach( item => {
+                liabilityList["type"].push(Object.keys(item)[0]);
+                liabilityList["value"].push(Object.values(item)[0]);
+            });
+
+            data.cashflow.income.forEach( item => {
+                incomeList["type"].push(Object.keys(item)[0]);
+                incomeList["value"].push(Object.values(item)[0]);
+            });
+            data.cashflow.expenses.forEach( item => {
+                expenseList["type"].push(Object.keys(item)[0]);
+                expenseList["value"].push(Object.values(item)[0]);
+            });
+        });
+
+        var ctx1 = document.getElementById("assetChart");
+        var assetChart = new Chart(ctx1, {
+            type: 'pie',
+            data: {
+                labels: assetList["type"],
+                datasets: [{
+                    label: 'Assets',
+                    data: assetList["value"]
+                }]
+            },
+            responseive: true
+        });
+        var ctx2 = document.getElementById("liabilityChart");
+        var liabilityChart = new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: liabilityList["type"],
+                datasets: [{
+                    label: 'Liabilities',
+                    data: liabilityList["value"]
+                }]
+            },
+            responseive: true
+        });
+        var ctx3 = document.getElementById("incomeChart");
+        var incomeChart = new Chart(ctx3, {
+            type: 'pie',
+            data: {
+                labels: incomeList["type"],
+                datasets: [{
+                    label: 'Incomes',
+                    data: incomeList["value"]
+                }]
+            },
+            responseive: true
+        });
+        var ctx4 = document.getElementById("expenseChart");
+        var expenseChart = new Chart(ctx4, {
+            type: 'pie',
+            data: {
+                labels: expenseList["type"],
+                datasets: [{
+                    label: 'Expenses',
+                    data: expenseList["value"]
+                }]
+            },
+            responseive: true
+        });
+    </script>
+</body>
+
+</html>
