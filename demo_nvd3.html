@@ -1,0 +1,119 @@
+<html>
+
+<head>
+    <title>Graph Example</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="assetPieChart" class='with-3d-shadow with-transitions assetPieChart'>
+        <svg></svg>
+    </div>
+    <div id="liabilityPieChart" class='with-3d-shadow with-transitions liabilityPieChart'>
+        <svg></svg>
+    </div>
+    <div id="incomePieChart" class='with-3d-shadow with-transitions incomePieChart'>
+        <svg></svg>
+    </div>
+    <div id="expensePieChart" class='with-3d-shadow with-transitions expensePieChart'>
+        <svg></svg>
+    </div>
+    <script>
+        var data;
+        var assetList = [];
+        var liabilityList = [];
+        var incomeList = [];
+        var expenseList = [];
+
+        $.getJSON("test_data.json", function(json) {
+            data = json;
+            data.balance.assets.forEach( item => {
+                newItem = {
+                    "label": Object.keys(item)[0],
+                    "value": Object.values(item)[0]
+                };
+                assetList.push(newItem);
+            });
+            data.balance.liaibilities.forEach( item => {
+                newItem = {
+                    "label": Object.keys(item)[0],
+                    "value": Object.values(item)[0]
+                };
+                liabilityList.push(newItem);
+            });
+
+            data.cashflow.income.forEach( item => {
+                newItem = {
+                    "label": Object.keys(item)[0],
+                    "value": Object.values(item)[0]
+                };
+                incomeList.push(newItem);
+            });
+            data.cashflow.expenses.forEach( item => {
+                newItem = {
+                    "label": Object.keys(item)[0],
+                    "value": Object.values(item)[0]
+                };
+                expenseList.push(newItem);
+            });
+        });
+
+        nv.addGraph(function() {
+            var chart = nv.models.pieChart()
+                .x(function(d) { return d.label })
+                .y(function(d) { return d.value })
+                .showLabels(true);
+
+                d3.select("#assetPieChart svg")
+                    .datum(assetList)
+                    .transition().duration(350)
+                    .call(chart);
+
+            return chart;
+        });
+        nv.addGraph(function() {
+            var chart = nv.models.pieChart()
+                .x(function(d) { return d.label })
+                .y(function(d) { return d.value })
+                .showLabels(true);
+
+                d3.select("#liabilityPieChart svg")
+                    .datum(liabilityList)
+                    .transition().duration(350)
+                    .call(chart);
+
+            return chart;
+        });
+        nv.addGraph(function() {
+            var chart = nv.models.pieChart()
+                .x(function(d) { return d.label })
+                .y(function(d) { return d.value })
+                .showLabels(true);
+
+                d3.select("#incomePieChart svg")
+                    .datum(incomeList)
+                    .transition().duration(350)
+                    .call(chart);
+
+            return chart;
+        });
+        nv.addGraph(function() {
+            var chart = nv.models.pieChart()
+                .x(function(d) { return d.label })
+                .y(function(d) { return d.value })
+                .showLabels(true);
+
+                d3.select("#expensePieChart svg")
+                    .datum(expenseList)
+                    .transition().duration(350)
+                    .call(chart);
+
+            return chart;
+        });
+    </script>
+</body>
+
+</html>
